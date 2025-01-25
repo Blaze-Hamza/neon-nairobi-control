@@ -2,6 +2,8 @@ import { Background } from "@/components/dashboard/Background";
 import { Navigation } from "@/components/dashboard/Navigation";
 import { Scanlines } from "@/components/ui/scanlines";
 import { Stats } from "@/components/dashboard/Stats";
+import { Tasks } from "@/components/dashboard/Tasks";
+import { Games } from "@/components/dashboard/Games";
 
 export default function Index() {
   return (
@@ -21,8 +23,10 @@ export default function Index() {
 
         <Navigation />
         
-        <div className="mt-8">
+        <div className="mt-8 space-y-8">
           <Stats />
+          <Tasks />
+          <Games />
         </div>
       </main>
     </div>
