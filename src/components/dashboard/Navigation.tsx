@@ -2,16 +2,18 @@ import { cn } from "@/lib/utils";
 import { Link, useLocation } from "react-router-dom";
 import {
   LayoutDashboard,
-  BarChart2,
-  Settings,
+  ListTodo,
+  Gamepad2,
   Users,
+  Wallet,
 } from "lucide-react";
 
 const navigation = [
   { name: "Dashboard", href: "/", icon: LayoutDashboard },
-  { name: "Analytics", href: "/analytics", icon: BarChart2 },
-  { name: "Team", href: "/team", icon: Users },
-  { name: "Settings", href: "/settings", icon: Settings },
+  { name: "Tasks", href: "/tasks", icon: ListTodo },
+  { name: "Games", href: "/games", icon: Gamepad2 },
+  { name: "Referrals", href: "/referrals", icon: Users },
+  { name: "Withdraw", href: "/withdraw", icon: Wallet },
 ];
 
 export function Navigation() {

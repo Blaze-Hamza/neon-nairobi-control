@@ -1,9 +1,9 @@
 import { Background } from "@/components/dashboard/Background";
 import { Navigation } from "@/components/dashboard/Navigation";
 import { Scanlines } from "@/components/ui/scanlines";
-import { Stats } from "@/components/dashboard/Stats";
+import { Tasks as TasksList } from "@/components/dashboard/Tasks";
 
-export default function Index() {
+export default function Tasks() {
   return (
     <div className="min-h-screen">
       <Background />
@@ -12,17 +12,17 @@ export default function Index() {
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <h1 className="cyber-text-glow mb-2 text-4xl font-bold tracking-tight text-cyber-green">
-            Dashboard
+            Task Hub
           </h1>
           <p className="text-muted-foreground">
-            Welcome back. Here's what's happening with your projects.
+            Complete tasks to earn rewards. Higher risk, higher reward.
           </p>
         </div>
 
         <Navigation />
         
         <div className="mt-8">
-          <Stats />
+          <TasksList />
         </div>
       </main>
     </div>
