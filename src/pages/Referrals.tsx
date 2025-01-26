@@ -4,6 +4,7 @@ import { Scanlines } from "@/components/ui/scanlines";
 import { ReferralMap } from "@/components/referrals/ReferralMap";
 import { ViralToolkit } from "@/components/referrals/ViralToolkit";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { cn } from "@/lib/utils";
 
 export default function Referrals() {
   const isMobile = useIsMobile();

@@ -3,6 +3,7 @@ import { Share2, Copy, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { cn } from "@/lib/utils";
 
 const AVATAR_STYLES = [
   { name: "Cyber Samurai", image: "/avatars/cyber-samurai.png" },
@@ -86,3 +87,4 @@ export function ViralToolkit() {
     </div>
   );
 }
+
