@@ -32,31 +32,49 @@ const clusters: ReferralCluster[] = [
 export function ReferralMap() {
   const [selectedCluster, setSelectedCluster] = useState<ReferralCluster | null>(null);
 
+  // Convert geographic coordinates to SVG viewport coordinates
+  const getClusterPosition = (coordinates: [number, number]) => {
+    // Kenya's approximate bounding box
+    const kenyaMinLat = -4.678;
+    const kenyaMaxLat = 5.506;
+    const kenyaMinLon = 33.908;
+    const kenyaMaxLon = 41.899;
+
+    // Calculate position as percentage within Kenya's bounds
+    const x = ((coordinates[1] - kenyaMinLon) / (kenyaMaxLon - kenyaMinLon)) * 100;
+    const y = ((coordinates[0] - kenyaMinLat) / (kenyaMaxLat - kenyaMinLat)) * 100;
+
+    return { x, y };
+  };
+
   return (
     <div className="cyber-card group relative min-h-[400px]">
       <h2 className="mb-4 text-lg font-semibold text-cyber-teal">Network Map</h2>
       
       <div className="relative h-[300px] w-full rounded-lg border border-cyber-green/20 bg-[url('/kenya-map.svg')] bg-contain bg-center bg-no-repeat">
-        {clusters.map((cluster) => (
-          <button
-            key={cluster.id}
-            onClick={() => setSelectedCluster(cluster)}
-            className="group absolute inline-flex items-center justify-center"
-            style={{
-              left: `${((cluster.coordinates[1] - 33) / 10) * 100}%`,
-              top: `${((cluster.coordinates[0] + 5) / 10) * 100}%`,
-            }}
-          >
-            <div
-              className="absolute -inset-2 animate-pulse rounded-full opacity-20 transition-all group-hover:opacity-40"
-              style={{ backgroundColor: cluster.color }}
-            />
-            <MapPin
-              className="h-6 w-6 transition-all group-hover:scale-110"
-              style={{ color: cluster.color }}
-            />
-          </button>
-        ))}
+        {clusters.map((cluster) => {
+          const position = getClusterPosition(cluster.coordinates);
+          return (
+            <button
+              key={cluster.id}
+              onClick={() => setSelectedCluster(cluster)}
+              className="group absolute inline-flex items-center justify-center"
+              style={{
+                left: `${position.x}%`,
+                top: `${position.y}%`,
+              }}
+            >
+              <div
+                className="absolute -inset-2 animate-pulse rounded-full opacity-20 transition-all group-hover:opacity-40"
+                style={{ backgroundColor: cluster.color }}
+              />
+              <MapPin
+                className="h-6 w-6 transition-all group-hover:scale-110"
+                style={{ color: cluster.color }}
+              />
+            </button>
+          );
+        })}
       </div>
 
       {selectedCluster && (

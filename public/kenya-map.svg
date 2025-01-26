@@ -1,3 +1,42 @@
 <svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M256 128C256 128 384 192 384 320C384 448 256 512 256 512C256 512 128 448 128 320C128 192 256 128 256 128Z" stroke="#00FF88" stroke-width="2" stroke-opacity="0.2"/>
+  <!-- Kenya outline with cyberpunk style -->
+  <path d="M256 128C256 128 320 160 320 256C320 352 256 384 256 384M256 128C256 128 192 160 192 256C192 352 256 384 256 384M256 128V384M320 256H192" 
+    stroke="#00FF88" 
+    stroke-width="2" 
+    stroke-opacity="0.2"
+  />
+  
+  <!-- Main Kenya outline -->
+  <path d="M280 150C310 160 330 180 340 220C350 260 355 280 360 300C365 320 368 340 365 360C362 380 355 400 340 420C325 440 300 450 280 455C260 460 240 460 220 455C200 450 175 440 160 420C145 400 138 380 135 360C132 340 135 320 140 300C145 280 150 260 160 220C170 180 190 160 220 150C250 140 250 140 280 150Z" 
+    stroke="#00FF88" 
+    stroke-width="2" 
+    stroke-opacity="0.4"
+    fill="none"
+  />
+  
+  <!-- Lake Victoria region -->
+  <path d="M160 220C170 180 190 160 220 150L200 200L160 220Z" 
+    stroke="#00FF88" 
+    stroke-width="2" 
+    stroke-opacity="0.3"
+    fill="none"
+  />
+  
+  <!-- Indian Ocean coastline -->
+  <path d="M340 420C325 440 300 450 280 455L320 400L340 420Z" 
+    stroke="#00FF88" 
+    stroke-width="2" 
+    stroke-opacity="0.3"
+    fill="none"
+  />
+  
+  <!-- Grid overlay for cyberpunk effect -->
+  <g stroke="#00FF88" stroke-width="1" stroke-opacity="0.1">
+    <line x1="0" y1="128" x2="512" y2="128" />
+    <line x1="0" y1="256" x2="512" y2="256" />
+    <line x1="0" y1="384" x2="512" y2="384" />
+    <line x1="128" y1="0" x2="128" y2="512" />
+    <line x1="256" y1="0" x2="256" y2="512" />
+    <line x1="384" y1="0" x2="384" y2="512" />
+  </g>
 </svg>
