@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { MapPin } from "lucide-react";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface ReferralCluster {
   id: number;
@@ -30,28 +31,29 @@ const clusters: ReferralCluster[] = [
   },
 ];
 
-const mapContainerStyle = {
-  width: "100%",
-  height: "300px",
-  borderRadius: "0.5rem",
-};
-
-const center = {
-  lat: 0.0236,
-  lng: 37.9062, // Center of Kenya
-};
-
 export function ReferralMap() {
   const [selectedCluster, setSelectedCluster] = useState<ReferralCluster | null>(null);
+  const isMobile = useIsMobile();
+
+  const mapContainerStyle = {
+    width: "100%",
+    height: isMobile ? "250px" : "300px",
+    borderRadius: "0.5rem",
+  };
+
+  const center = {
+    lat: 0.0236,
+    lng: 37.9062,
+  };
 
   return (
-    <div className="cyber-card group relative min-h-[400px]">
+    <div className="cyber-card group">
       <h2 className="mb-4 text-lg font-semibold text-cyber-teal">Network Map</h2>
       
       <LoadScript googleMapsApiKey="AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg">
         <GoogleMap
           mapContainerStyle={mapContainerStyle}
-          zoom={6}
+          zoom={isMobile ? 5 : 6}
           center={center}
           options={{
             styles: [
@@ -80,7 +82,7 @@ export function ReferralMap() {
                 fillOpacity: 0.9,
                 strokeWeight: 1,
                 strokeColor: "#FFFFFF",
-                scale: 1.5,
+                scale: isMobile ? 1.2 : 1.5,
               }}
             />
           ))}
@@ -89,27 +91,25 @@ export function ReferralMap() {
 
       {selectedCluster && (
         <div className="mt-4 rounded-lg border border-cyber-green/20 bg-cyber-black/50 p-4">
-          <h3 className="mb-2 text-lg font-semibold" style={{ color: selectedCluster.color }}>
+          <h3 className="mb-2 text-base md:text-lg font-semibold" style={{ color: selectedCluster.color }}>
             {selectedCluster.city} Cluster
           </h3>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <p className="text-sm text-muted-foreground">Hourly Earnings</p>
-              <p className="cyber-text-glow text-lg font-semibold text-cyber-green">
+              <p className="text-xs md:text-sm text-muted-foreground">Hourly Earnings</p>
+              <p className="cyber-text-glow text-base md:text-lg font-semibold text-cyber-green">
                 +{selectedCluster.earnings} KSH/hr
               </p>
             </div>
             <div>
-              <p className="text-sm text-muted-foreground">Active Referrals</p>
-              <p className="text-lg font-semibold text-cyber-teal">
+              <p className="text-xs md:text-sm text-muted-foreground">Active Referrals</p>
+              <p className="text-base md:text-lg font-semibold text-cyber-teal">
                 {selectedCluster.referrals}
               </p>
             </div>
           </div>
         </div>
       )}
-
-      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-cyber-green/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
     </div>
   );
 }

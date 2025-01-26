@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Share2, Copy, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const AVATAR_STYLES = [
   { name: "Cyber Samurai", image: "/avatars/cyber-samurai.png" },
@@ -12,6 +13,7 @@ const AVATAR_STYLES = [
 export function ViralToolkit() {
   const [selectedStyle, setSelectedStyle] = useState(0);
   const [copied, setCopied] = useState(false);
+  const isMobile = useIsMobile();
   const referralLink = "https://example.com/ref/user123";
 
   const copyLink = async () => {
@@ -21,14 +23,14 @@ export function ViralToolkit() {
   };
 
   return (
-    <div className="cyber-card group">
+    <div className="cyber-card group h-full">
       <h2 className="mb-4 text-lg font-semibold text-cyber-teal">Viral Toolkit</h2>
 
       <div className="mb-6">
         <h3 className="mb-2 text-sm font-medium text-muted-foreground">
           Choose Your Avatar Style
         </h3>
-        <div className="flex space-x-4">
+        <div className="flex flex-wrap md:flex-nowrap gap-4 justify-center md:justify-start">
           {AVATAR_STYLES.map((style, index) => (
             <button
               key={style.name}
@@ -37,7 +39,7 @@ export function ViralToolkit() {
                 selectedStyle === index ? "ring-2 ring-cyber-green ring-offset-2 ring-offset-cyber-black" : ""
               }`}
             >
-              <Avatar className="h-16 w-16">
+              <Avatar className={cn("transition-all", isMobile ? "h-14 w-14" : "h-16 w-16")}>
                 <AvatarImage src={style.image} alt={style.name} />
                 <AvatarFallback className="bg-cyber-green/10 text-cyber-green">
                   {style.name[0]}
@@ -53,7 +55,7 @@ export function ViralToolkit() {
           Your Referral Link
         </h3>
         <div className="flex items-center space-x-2">
-          <code className="flex-1 rounded bg-cyber-black/50 px-3 py-2 font-mono text-sm text-cyber-green">
+          <code className="flex-1 rounded bg-cyber-black/50 px-3 py-2 font-mono text-xs md:text-sm text-cyber-green overflow-x-auto">
             {referralLink}
           </code>
           <Button
