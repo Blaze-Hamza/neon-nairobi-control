@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { MapPin } from "lucide-react";
+import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 
 interface ReferralCluster {
   id: number;
@@ -29,53 +30,62 @@ const clusters: ReferralCluster[] = [
   },
 ];
 
+const mapContainerStyle = {
+  width: "100%",
+  height: "300px",
+  borderRadius: "0.5rem",
+};
+
+const center = {
+  lat: 0.0236,
+  lng: 37.9062, // Center of Kenya
+};
+
 export function ReferralMap() {
   const [selectedCluster, setSelectedCluster] = useState<ReferralCluster | null>(null);
-
-  // Convert geographic coordinates to SVG viewport coordinates
-  const getClusterPosition = (coordinates: [number, number]) => {
-    // Kenya's approximate bounding box
-    const kenyaMinLat = -4.678;
-    const kenyaMaxLat = 5.506;
-    const kenyaMinLon = 33.908;
-    const kenyaMaxLon = 41.899;
-
-    // Calculate position as percentage within Kenya's bounds
-    const x = ((coordinates[1] - kenyaMinLon) / (kenyaMaxLon - kenyaMinLon)) * 100;
-    const y = ((coordinates[0] - kenyaMinLat) / (kenyaMaxLat - kenyaMinLat)) * 100;
-
-    return { x, y };
-  };
 
   return (
     <div className="cyber-card group relative min-h-[400px]">
       <h2 className="mb-4 text-lg font-semibold text-cyber-teal">Network Map</h2>
       
-      <div className="relative h-[300px] w-full rounded-lg border border-cyber-green/20 bg-[url('/kenya-map.svg')] bg-contain bg-center bg-no-repeat">
-        {clusters.map((cluster) => {
-          const position = getClusterPosition(cluster.coordinates);
-          return (
-            <button
+      <LoadScript googleMapsApiKey="AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg">
+        <GoogleMap
+          mapContainerStyle={mapContainerStyle}
+          zoom={6}
+          center={center}
+          options={{
+            styles: [
+              {
+                featureType: "all",
+                elementType: "all",
+                stylers: [
+                  { saturation: -100 },
+                  { lightness: -20 }
+                ]
+              }
+            ]
+          }}
+        >
+          {clusters.map((cluster) => (
+            <Marker
               key={cluster.id}
-              onClick={() => setSelectedCluster(cluster)}
-              className="group absolute inline-flex items-center justify-center"
-              style={{
-                left: `${position.x}%`,
-                top: `${position.y}%`,
+              position={{
+                lat: cluster.coordinates[0],
+                lng: cluster.coordinates[1],
               }}
-            >
-              <div
-                className="absolute -inset-2 animate-pulse rounded-full opacity-20 transition-all group-hover:opacity-40"
-                style={{ backgroundColor: cluster.color }}
-              />
-              <MapPin
-                className="h-6 w-6 transition-all group-hover:scale-110"
-                style={{ color: cluster.color }}
-              />
-            </button>
-          );
-        })}
-      </div>
+              onClick={() => setSelectedCluster(cluster)}
+              icon={{
+                path: "M10 20S3 10.87 3 7a7 7 0 1 1 14 0c0 3.87-7 13-7 13zm0-11a2 2 0 1 0 0-4 2 2 0 0 0 0 4z",
+                fillColor: cluster.color,
+                fillOpacity: 0.9,
+                strokeWeight: 1,
+                strokeColor: "#FFFFFF",
+                scale: 1.5,
+              }}
+            />
+          ))}
+        </GoogleMap>
+      </LoadScript>
 
       {selectedCluster && (
         <div className="mt-4 rounded-lg border border-cyber-green/20 bg-cyber-black/50 p-4">
