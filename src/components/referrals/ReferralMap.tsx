@@ -92,7 +92,7 @@ export function ReferralMap() {
     <div className="cyber-card group">
       <h2 className="mb-4 text-lg font-semibold text-cyber-teal">Network Map</h2>
       
-      <LoadScript googleMapsApiKey={process.env.VITE_GOOGLE_MAPS_API_KEY || ""}>
+      <LoadScript googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY || ""}>
         <GoogleMap
           mapContainerStyle={mapContainerStyle}
           zoom={isMobile ? 5 : 6}
