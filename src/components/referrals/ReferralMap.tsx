@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { MapPin } from "lucide-react";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -31,6 +30,49 @@ const clusters: ReferralCluster[] = [
   },
 ];
 
+const mapStyles = [
+  {
+    featureType: "all",
+    elementType: "labels.text.fill",
+    stylers: [{ color: "#ffffff" }],
+  },
+  {
+    featureType: "all",
+    elementType: "labels.text.stroke",
+    stylers: [{ visibility: "on" }, { color: "#000000" }, { weight: 2 }],
+  },
+  {
+    featureType: "all",
+    elementType: "labels.icon",
+    stylers: [{ visibility: "off" }],
+  },
+  {
+    featureType: "administrative",
+    elementType: "geometry.fill",
+    stylers: [{ color: "#000000" }],
+  },
+  {
+    featureType: "administrative",
+    elementType: "geometry.stroke",
+    stylers: [{ color: "#00ff88" }, { weight: 1 }],
+  },
+  {
+    featureType: "landscape",
+    elementType: "geometry",
+    stylers: [{ color: "#000000" }],
+  },
+  {
+    featureType: "road",
+    elementType: "geometry",
+    stylers: [{ color: "#00ff88" }, { weight: 0.2 }],
+  },
+  {
+    featureType: "water",
+    elementType: "geometry",
+    stylers: [{ color: "#000000" }],
+  },
+];
+
 export function ReferralMap() {
   const [selectedCluster, setSelectedCluster] = useState<ReferralCluster | null>(null);
   const isMobile = useIsMobile();
@@ -50,22 +92,15 @@ export function ReferralMap() {
     <div className="cyber-card group">
       <h2 className="mb-4 text-lg font-semibold text-cyber-teal">Network Map</h2>
       
-      <LoadScript googleMapsApiKey="AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg">
+      <LoadScript googleMapsApiKey={process.env.VITE_GOOGLE_MAPS_API_KEY || ""}>
         <GoogleMap
           mapContainerStyle={mapContainerStyle}
           zoom={isMobile ? 5 : 6}
           center={center}
           options={{
-            styles: [
-              {
-                featureType: "all",
-                elementType: "all",
-                stylers: [
-                  { saturation: -100 },
-                  { lightness: -20 }
-                ]
-              }
-            ]
+            styles: mapStyles,
+            disableDefaultUI: true,
+            backgroundColor: '#000000',
           }}
         >
           {clusters.map((cluster) => (

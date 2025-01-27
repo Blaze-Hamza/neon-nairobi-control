@@ -2,7 +2,6 @@ import { Background } from "@/components/dashboard/Background";
 import { Navigation } from "@/components/dashboard/Navigation";
 import { Scanlines } from "@/components/ui/scanlines";
 import { ReferralMap } from "@/components/referrals/ReferralMap";
-import { ViralToolkit } from "@/components/referrals/ViralToolkit";
 import { ReferralTiers } from "@/components/referrals/ReferralTiers";
 import { ReferralLeaderboard } from "@/components/referrals/ReferralLeaderboard";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -28,13 +27,8 @@ export default function Referrals() {
 
         <Navigation />
         
-        <div className="mt-8 grid gap-8 md:grid-cols-2">
-          <div className={cn("w-full", isMobile && "order-2")}>
-            <ReferralMap />
-          </div>
-          <div className={cn("w-full", isMobile && "order-1")}>
-            <ViralToolkit />
-          </div>
+        <div className="mt-8">
+          <ReferralMap />
         </div>
 
         <div className="mt-8 grid gap-8 md:grid-cols-2">
