@@ -3,6 +3,8 @@ import { Navigation } from "@/components/dashboard/Navigation";
 import { Scanlines } from "@/components/ui/scanlines";
 import { ReferralMap } from "@/components/referrals/ReferralMap";
 import { ViralToolkit } from "@/components/referrals/ViralToolkit";
+import { ReferralTiers } from "@/components/referrals/ReferralTiers";
+import { ReferralLeaderboard } from "@/components/referrals/ReferralLeaderboard";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
 
@@ -17,10 +19,10 @@ export default function Referrals() {
       <main className="container mx-auto p-4 md:py-8">
         <div className="mb-8">
           <h1 className="cyber-text-glow mb-2 text-3xl md:text-4xl font-bold tracking-tight text-cyber-teal">
-            Referral Underworld
+            Referral Network
           </h1>
           <p className="text-sm md:text-base text-muted-foreground">
-            Expand your network. Earn passive income.
+            Hack the system. Build your network. Earn rewards.
           </p>
         </div>
 
@@ -33,6 +35,11 @@ export default function Referrals() {
           <div className={cn("w-full", isMobile && "order-1")}>
             <ViralToolkit />
           </div>
+        </div>
+
+        <div className="mt-8 grid gap-8 md:grid-cols-2">
+          <ReferralTiers />
+          <ReferralLeaderboard />
         </div>
       </main>
     </div>
