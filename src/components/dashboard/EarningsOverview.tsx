@@ -2,10 +2,36 @@ import { Card } from "./Card";
 import { Button } from "@/components/ui/button";
 import { Copy, Share2, CreditCard, Sparkles } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+import { useState } from "react";
+
+// Sample data - in a real app, this would come from an API
+const generateData = (type: string) => [
+  { name: "Mon", earnings: Math.floor(Math.random() * 500) },
+  { name: "Tue", earnings: Math.floor(Math.random() * 500) },
+  { name: "Wed", earnings: Math.floor(Math.random() * 500) },
+  { name: "Thu", earnings: Math.floor(Math.random() * 500) },
+  { name: "Fri", earnings: Math.floor(Math.random() * 500) },
+  { name: "Sat", earnings: Math.floor(Math.random() * 500) },
+  { name: "Sun", earnings: Math.floor(Math.random() * 500) },
+];
+
+type EarningsType = "video" | "task" | "betting" | "referral";
+type TimeRange = "daily" | "weekly" | "monthly";
 
 export function EarningsOverview() {
   const { toast } = useToast();
   const neonId = "CYBER7X";
+  const [earningsType, setEarningsType] = useState<EarningsType>("video");
+  const [timeRange, setTimeRange] = useState<TimeRange>("daily");
 
   const copyNeonId = () => {
     navigator.clipboard.writeText(neonId);
@@ -59,6 +85,83 @@ export function EarningsOverview() {
               Upgrade
             </Button>
           </div>
+        </div>
+      </div>
+
+      {/* Earnings Graph */}
+      <div className="cyber-card group">
+        <div className="mb-6">
+          <h2 className="text-lg font-semibold text-cyber-teal mb-4">Earnings Overview</h2>
+          <div className="flex gap-2 mb-4">
+            {["video", "task", "betting", "referral"].map((type) => (
+              <Button
+                key={type}
+                variant={earningsType === type ? "default" : "outline"}
+                onClick={() => setEarningsType(type as EarningsType)}
+                className={`capitalize ${
+                  earningsType === type
+                    ? "bg-cyber-green text-black"
+                    : "hover:text-cyber-green hover:border-cyber-green"
+                }`}
+              >
+                {type}
+              </Button>
+            ))}
+          </div>
+          <div className="flex gap-2">
+            {["daily", "weekly", "monthly"].map((range) => (
+              <Button
+                key={range}
+                variant={timeRange === range ? "default" : "outline"}
+                onClick={() => setTimeRange(range as TimeRange)}
+                className={`capitalize ${
+                  timeRange === range
+                    ? "bg-cyber-teal text-black"
+                    : "hover:text-cyber-teal hover:border-cyber-teal"
+                }`}
+              >
+                {range}
+              </Button>
+            ))}
+          </div>
+        </div>
+        <div className="h-[300px] w-full">
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart data={generateData(earningsType)}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#1a1a1a" />
+              <XAxis
+                dataKey="name"
+                stroke="#666"
+                tick={{ fill: "#666" }}
+              />
+              <YAxis
+                stroke="#666"
+                tick={{ fill: "#666" }}
+                tickFormatter={(value) => `${value} KSH`}
+              />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: "#0A0A0A",
+                  border: "1px solid #00FF88",
+                  borderRadius: "8px",
+                }}
+                labelStyle={{ color: "#00FF88" }}
+              />
+              <Line
+                type="monotone"
+                dataKey="earnings"
+                stroke="#00FF88"
+                strokeWidth={2}
+                dot={{ fill: "#00FF88", strokeWidth: 2 }}
+                activeDot={{
+                  fill: "#00FF88",
+                  stroke: "#000",
+                  strokeWidth: 2,
+                  r: 6,
+                }}
+              />
+            </LineChart>
+          </ResponsiveContainer>
         </div>
       </div>
 
