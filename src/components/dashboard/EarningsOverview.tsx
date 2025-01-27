@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Copy, Share2, CreditCard, Sparkles } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import {
-  Chart as ChartComponent,
+  LineChart,
   Line,
   XAxis,
   YAxis,
@@ -86,7 +86,7 @@ export function EarningsOverview() {
         <h2 className="text-lg font-semibold text-cyber-teal mb-4">Earnings Overview</h2>
         <div className="h-[300px] w-full">
           <ResponsiveContainer width="100%" height="100%">
-            <ChartComponent data={data}>
+            <LineChart data={data}>
               <CartesianGrid strokeDasharray="3 3" stroke="#1a1a1a" />
               <XAxis
                 dataKey="name"
@@ -119,7 +119,7 @@ export function EarningsOverview() {
                   r: 6,
                 }}
               />
-            </ChartComponent>
+            </LineChart>
           </ResponsiveContainer>
         </div>
       </div>
