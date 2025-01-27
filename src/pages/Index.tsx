@@ -1,7 +1,7 @@
 import { Background } from "@/components/dashboard/Background";
 import { Navigation } from "@/components/dashboard/Navigation";
 import { Scanlines } from "@/components/ui/scanlines";
-import { Stats } from "@/components/dashboard/Stats";
+import { EarningsOverview } from "@/components/dashboard/EarningsOverview";
 
 export default function Index() {
   return (
@@ -15,14 +15,14 @@ export default function Index() {
             Dashboard
           </h1>
           <p className="text-muted-foreground">
-            Welcome back. Here's what's happening with your projects.
+            Welcome back. Here's what's happening with your earnings.
           </p>
         </div>
 
         <Navigation />
         
         <div className="mt-8">
-          <Stats />
+          <EarningsOverview />
         </div>
       </main>
     </div>
