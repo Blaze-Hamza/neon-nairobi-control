@@ -2,25 +2,6 @@ import { Card } from "./Card";
 import { Button } from "@/components/ui/button";
 import { Copy, Share2, CreditCard, Sparkles } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
-
-const data = [
-  { name: "Mon", earnings: 250 },
-  { name: "Tue", earnings: 320 },
-  { name: "Wed", earnings: 180 },
-  { name: "Thu", earnings: 440 },
-  { name: "Fri", earnings: 550 },
-  { name: "Sat", earnings: 270 },
-  { name: "Sun", earnings: 390 },
-];
 
 export function EarningsOverview() {
   const { toast } = useToast();
@@ -78,49 +59,6 @@ export function EarningsOverview() {
               Upgrade
             </Button>
           </div>
-        </div>
-      </div>
-
-      {/* Earnings Graph */}
-      <div className="cyber-card group">
-        <h2 className="text-lg font-semibold text-cyber-teal mb-4">Earnings Overview</h2>
-        <div className="h-[300px] w-full">
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={data}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#1a1a1a" />
-              <XAxis
-                dataKey="name"
-                stroke="#666"
-                tick={{ fill: "#666" }}
-              />
-              <YAxis
-                stroke="#666"
-                tick={{ fill: "#666" }}
-                tickFormatter={(value) => `${value} KSH`}
-              />
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: "#0A0A0A",
-                  border: "1px solid #00FF88",
-                  borderRadius: "8px",
-                }}
-                labelStyle={{ color: "#00FF88" }}
-              />
-              <Line
-                type="monotone"
-                dataKey="earnings"
-                stroke="#00FF88"
-                strokeWidth={2}
-                dot={{ fill: "#00FF88", strokeWidth: 2 }}
-                activeDot={{
-                  fill: "#00FF88",
-                  stroke: "#000",
-                  strokeWidth: 2,
-                  r: 6,
-                }}
-              />
-            </LineChart>
-          </ResponsiveContainer>
         </div>
       </div>
 
